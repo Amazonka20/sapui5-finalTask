@@ -11,7 +11,9 @@
   "devDependencies": {
     "@sap-ux/ui5-middleware-fe-mockserver": "^2.4.7",
     "@sap/ux-ui5-tooling": "1",
-    "@ui5/cli": "^4.0.33"
+    "@ui5/cli": "^4.0.33",
+    "@prettier/plugin-xml": "^3.4.1",
+    "prettier": "^3.3.3"
   },
   "scripts": {
     "start": "fiori run --config ./ui5.yaml --open \"test/flp.html#app-preview\"",

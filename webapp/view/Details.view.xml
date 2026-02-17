@@ -1,0 +1,11 @@
+<mvc:View
+  controllerName="finalproject.controller.Details"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+>
+  <Page id="detailsPage" title="Order #{OrderID}">
+    <ObjectHeader title="{Customer/Name}" number="{Freight}" numberUnit="USD" />
+    <Text text="Required: {RequiredDate}" />
+    <Text text="Shipped: {ShippedDate}" />
+  </Page>
+</mvc:View>

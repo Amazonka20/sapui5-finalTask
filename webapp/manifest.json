@@ -42,12 +42,14 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.144.1",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.ui.comp": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -79,10 +81,9 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "transition": "slide",
+        "routerClass": "sap.f.routing.Router",
+        "controlAggregation": "beginColumnPages",
+        "controlId": "layout",
         "type": "View",
         "viewType": "XML",
         "path": "finalproject.view",
@@ -90,19 +91,17 @@
         "viewPath": "finalproject.view"
       },
       "routes": [
+        { "name": "main", "pattern": "", "target": "main", "layout": "OneColumn" },
         {
-          "name": "RouteMain",
-          "pattern": ":?query:",
-          "target": [
-            "TargetMain"
-          ]
+          "name": "details",
+          "target": "details",
+          "pattern": "details/{orderID}",
+          "layout": "TwoColumnsMidExpanded"
         }
       ],
       "targets": {
-        "TargetMain": {
-          "id": "Main",
-          "name": "Main"
-        }
+        "main": { "name": "Main", "controlAggregation": "beginColumnPages" },
+        "details": { "name": "Details", "controlAggregation": "midColumnPages" }
       }
     },
     "rootView": {

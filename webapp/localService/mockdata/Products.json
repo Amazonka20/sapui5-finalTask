@@ -1,90 +1,74 @@
 [
   {
     "ID": 1,
-    "Name": "Shower Gel Citrus",
-    "Description": "Refreshing citrus shower gel",
+    "Name": "Espresso Blend",
+    "Description": "Dark roast, rich crema",
     "ReleaseDate": "2024-02-12T00:00:00",
     "DiscontinuedDate": null,
     "Rating": 5,
-    "Price": "6.90",
-    "SupplierID": 100,
-    "CategoryID": 10
+    "Price": "9.90"
   },
   {
     "ID": 2,
-    "Name": "Hand Cream Aloe",
-    "Description": "Moisturizing hand cream with aloe",
+    "Name": "House Blend",
+    "Description": "Medium roast, balanced taste",
     "ReleaseDate": "2023-09-05T00:00:00",
     "DiscontinuedDate": null,
     "Rating": 4,
-    "Price": "4.50",
-    "SupplierID": 101,
-    "CategoryID": 11
+    "Price": "8.50"
   },
   {
     "ID": 3,
-    "Name": "Micellar Water",
-    "Description": "Gentle face cleanser",
+    "Name": "Single Origin Ethiopia",
+    "Description": "Floral, citrus notes",
     "ReleaseDate": "2022-05-20T00:00:00",
     "DiscontinuedDate": null,
-    "Rating": 4,
-    "Price": "7.20",
-    "SupplierID": 100,
-    "CategoryID": 11
+    "Rating": 5,
+    "Price": "12.20"
   },
   {
     "ID": 4,
-    "Name": "Dishwashing Liquid",
-    "Description": "Lemon dishwashing liquid",
+    "Name": "Single Origin Colombia",
+    "Description": "Chocolate and caramel notes",
     "ReleaseDate": "2021-11-01T00:00:00",
     "DiscontinuedDate": null,
-    "Rating": 3,
-    "Price": "3.10",
-    "SupplierID": 102,
-    "CategoryID": 12
+    "Rating": 4,
+    "Price": "11.80"
   },
   {
     "ID": 5,
-    "Name": "Laundry Detergent",
-    "Description": "Color-safe laundry detergent",
+    "Name": "Decaf Blend",
+    "Description": "Smooth decaf, no bitterness",
     "ReleaseDate": "2023-01-15T00:00:00",
     "DiscontinuedDate": null,
-    "Rating": 5,
-    "Price": "9.80",
-    "SupplierID": 102,
-    "CategoryID": 13
+    "Rating": 4,
+    "Price": "9.20"
   },
   {
     "ID": 6,
-    "Name": "All-Purpose Cleaner",
-    "Description": "Multi-surface cleaner",
+    "Name": "Cold Brew Coarse Grind",
+    "Description": "Coarse grind for cold brew",
     "ReleaseDate": "2022-08-30T00:00:00",
     "DiscontinuedDate": null,
-    "Rating": 4,
-    "Price": "5.40",
-    "SupplierID": 101,
-    "CategoryID": 12
+    "Rating": 5,
+    "Price": "10.40"
   },
   {
     "ID": 7,
-    "Name": "Face Mask Clay",
-    "Description": "Purifying clay face mask",
+    "Name": "Organic Peru",
+    "Description": "Light roast, clean finish",
     "ReleaseDate": "2024-03-01T00:00:00",
     "DiscontinuedDate": null,
-    "Rating": 5,
-    "Price": "8.60",
-    "SupplierID": 100,
-    "CategoryID": 11
+    "Rating": 4,
+    "Price": "12.00"
   },
   {
     "ID": 8,
-    "Name": "Glass Cleaner",
-    "Description": "Streak-free glass cleaner",
+    "Name": "French Roast",
+    "Description": "Smoky, very dark roast",
     "ReleaseDate": "2022-10-10T00:00:00",
     "DiscontinuedDate": null,
     "Rating": 4,
-    "Price": "4.30",
-    "SupplierID": 102,
-    "CategoryID": 12
+    "Price": "9.70"
   }
 ]

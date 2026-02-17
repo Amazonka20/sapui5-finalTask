@@ -1,0 +1,38 @@
+[
+  {
+    "ID": 100,
+    "Name": "Aurora Coffee Co",
+    "Address": {
+      "Street": "12 Market St",
+      "City": "Seattle",
+      "State": "WA",
+      "ZipCode": "98101",
+      "Country": "USA"
+    },
+    "Concurrency": 1
+  },
+  {
+    "ID": 101,
+    "Name": "Boreal Roasters",
+    "Address": {
+      "Street": "80 River Rd",
+      "City": "Portland",
+      "State": "OR",
+      "ZipCode": "97205",
+      "Country": "USA"
+    },
+    "Concurrency": 1
+  },
+  {
+    "ID": 102,
+    "Name": "Summit Bean Supply",
+    "Address": {
+      "Street": "5 Hill Ave",
+      "City": "Denver",
+      "State": "CO",
+      "ZipCode": "80202",
+      "Country": "USA"
+    },
+    "Concurrency": 1
+  }
+]

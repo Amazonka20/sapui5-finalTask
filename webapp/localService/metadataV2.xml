@@ -1,91 +1,181 @@
 <edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
-    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0" m:MaxDataServiceVersion="2.0">
-        <Schema xmlns="http://schemas.microsoft.com/ado/2007/05/edm" Namespace="ODataDemo">
-            <EntityType Name="Product">
-                <Key>
-                    <PropertyRef Name="ID" />
-                </Key>
-                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-                <Property Name="Name" Type="Edm.String" m:FC_TargetPath="SyndicationTitle" m:FC_ContentKind="text" m:FC_KeepInContent="false" />
-                <Property Name="Description" Type="Edm.String" m:FC_TargetPath="SyndicationSummary" m:FC_ContentKind="text" m:FC_KeepInContent="false" />
-                <Property Name="ReleaseDate" Type="Edm.DateTime" Nullable="false" />
-                <Property Name="DiscontinuedDate" Type="Edm.DateTime" />
-                <Property Name="Rating" Type="Edm.Int32" Nullable="false" />
-                <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
-                <Property Name="SupplierID" Type="Edm.Int32" Nullable="true" />
-                <Property Name="CategoryID" Type="Edm.Int32" Nullable="true" />
-                <NavigationProperty Name="Category" Relationship="ODataDemo.Product_Category_Category_Products" ToRole="Category_Products" FromRole="Product_Category" />
-                <NavigationProperty Name="Supplier" Relationship="ODataDemo.Product_Supplier_Supplier_Products" ToRole="Supplier_Products" FromRole="Product_Supplier" />
-            </EntityType>
-            <EntityType Name="Category">
-                <Key>
-                    <PropertyRef Name="ID" />
-                </Key>
-                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-                <Property Name="Name" Type="Edm.String" m:FC_TargetPath="SyndicationTitle" m:FC_ContentKind="text" m:FC_KeepInContent="true" />
-                <NavigationProperty Name="Products" Relationship="ODataDemo.Product_Category_Category_Products" ToRole="Product_Category" FromRole="Category_Products" />
-            </EntityType>
-            <EntityType Name="Supplier">
-                <Key>
-                    <PropertyRef Name="ID" />
-                </Key>
-                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-                <Property Name="Name" Type="Edm.String" m:FC_TargetPath="SyndicationTitle" m:FC_ContentKind="text" m:FC_KeepInContent="true" />
-                <Property Name="Address" Type="ODataDemo.Address" Nullable="false" />
-                <Property Name="Concurrency" Type="Edm.Int32" ConcurrencyMode="Fixed" Nullable="false" />
-                <NavigationProperty Name="Products" Relationship="ODataDemo.Product_Supplier_Supplier_Products" ToRole="Product_Supplier" FromRole="Supplier_Products" />
-            </EntityType>
-            <ComplexType Name="Address">
-                <Property Name="Street" Type="Edm.String" />
-                <Property Name="City" Type="Edm.String" />
-                <Property Name="State" Type="Edm.String" />
-                <Property Name="ZipCode" Type="Edm.String" />
-                <Property Name="Country" Type="Edm.String" />
-            </ComplexType>
-            <Association Name="Product_Category_Category_Products">
-                <End Type="ODataDemo.Category" Role="Category_Products" Multiplicity="0..1" />
-                <End Type="ODataDemo.Product" Role="Product_Category" Multiplicity="*" />
-                <Association Name="Product_Category_Category_Products">
-                    <End Type="ODataDemo.Category" Role="Category_Products" Multiplicity="0..1" />
-                    <End Type="ODataDemo.Product" Role="Product_Category" Multiplicity="*" />
-                    <ReferentialConstraint>
-                        <Principal Role="Category_Products">
-                            <PropertyRef Name="ID" />
-                        </Principal>
-                        <Dependent Role="Product_Category">
-                            <PropertyRef Name="CategoryID" />
-                        </Dependent>
-                    </ReferentialConstraint>
-                </Association>
-            </Association>
-            <Association Name="Product_Supplier_Supplier_Products">
-                <End Type="ODataDemo.Supplier" Role="Supplier_Products" Multiplicity="0..1" />
-                <End Type="ODataDemo.Product" Role="Product_Supplier" Multiplicity="*" />
-                <ReferentialConstraint>
-                    <Principal Role="Supplier_Products">
-                        <PropertyRef Name="ID" />
-                    </Principal>
-                    <Dependent Role="Product_Supplier">
-                        <PropertyRef Name="SupplierID" />
-                    </Dependent>
-                </ReferentialConstraint>
-            </Association>
-            <EntityContainer Name="DemoService" m:IsDefaultEntityContainer="true">
-                <EntitySet Name="Products" EntityType="ODataDemo.Product" />
-                <EntitySet Name="Categories" EntityType="ODataDemo.Category" />
-                <EntitySet Name="Suppliers" EntityType="ODataDemo.Supplier" />
-                <FunctionImport Name="GetProductsByRating" ReturnType="Collection(ODataDemo.Product)" EntitySet="Products" m:HttpMethod="GET">
-                    <Parameter Name="rating" Type="Edm.Int32" />
-                </FunctionImport>
-                <AssociationSet Name="Products_Category_Categories" Association="ODataDemo.Product_Category_Category_Products">
-                    <End Role="Product_Category" EntitySet="Products" />
-                    <End Role="Category_Products" EntitySet="Categories" />
-                </AssociationSet>
-                <AssociationSet Name="Products_Supplier_Suppliers" Association="ODataDemo.Product_Supplier_Supplier_Products">
-                    <End Role="Product_Supplier" EntitySet="Products" />
-                    <End Role="Supplier_Products" EntitySet="Suppliers" />
-                </AssociationSet>
-            </EntityContainer>
-        </Schema>
-    </edmx:DataServices>
+  <edmx:DataServices
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    m:DataServiceVersion="2.0"
+    m:MaxDataServiceVersion="2.0"
+  >
+    <Schema xmlns="http://schemas.microsoft.com/ado/2007/05/edm" Namespace="ODataDemo">
+      <EntityType Name="Product">
+        <Key>
+          <PropertyRef Name="ID" />
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          m:FC_TargetPath="SyndicationTitle"
+          m:FC_ContentKind="text"
+          m:FC_KeepInContent="false"
+        />
+        <Property
+          Name="Description"
+          Type="Edm.String"
+          m:FC_TargetPath="SyndicationSummary"
+          m:FC_ContentKind="text"
+          m:FC_KeepInContent="false"
+        />
+        <Property Name="ReleaseDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DiscontinuedDate" Type="Edm.DateTime" />
+        <Property Name="Rating" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
+        <NavigationProperty
+          Name="OrderItems"
+          Relationship="ODataDemo.Product_OrderItems"
+          ToRole="OrderItem"
+          FromRole="Product"
+        />
+      </EntityType>
+
+      <EntityType Name="Customer">
+        <Key>
+          <PropertyRef Name="ID" />
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Address" Type="ODataDemo.Address" Nullable="false" />
+        <Property Name="Concurrency" Type="Edm.Int32" ConcurrencyMode="Fixed" Nullable="false" />
+        <NavigationProperty
+          Name="Orders"
+          Relationship="ODataDemo.Customer_Orders"
+          ToRole="Order_Customer"
+          FromRole="Customer_Orders"
+        />
+      </EntityType>
+
+      <EntityType Name="Order">
+        <Key>
+          <PropertyRef Name="OrderID" />
+        </Key>
+        <Property Name="OrderID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CustomerID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="RequiredDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ShippedDate" Type="Edm.DateTime" />
+        <Property Name="Freight" Type="Edm.Decimal" Nullable="false" />
+        <NavigationProperty
+          Name="Customer"
+          Relationship="ODataDemo.Customer_Orders"
+          ToRole="Customer_Orders"
+          FromRole="Order_Customer"
+        />
+        <NavigationProperty
+          Name="Items"
+          Relationship="ODataDemo.Order_OrderItems"
+          ToRole="OrderItems"
+          FromRole="Order"
+        />
+      </EntityType>
+
+      <EntityType Name="OrderItem">
+        <Key>
+          <PropertyRef Name="OrderID" />
+          <PropertyRef Name="ProductID" />
+        </Key>
+        <Property Name="OrderID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ProductID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
+        <NavigationProperty
+          Name="Product"
+          Relationship="ODataDemo.Product_OrderItems"
+          ToRole="Product"
+          FromRole="OrderItem"
+        />
+        <NavigationProperty
+          Name="Order"
+          Relationship="ODataDemo.Order_OrderItems"
+          ToRole="Order"
+          FromRole="OrderItems"
+        />
+      </EntityType>
+
+      <ComplexType Name="Address">
+        <Property Name="Street" Type="Edm.String" />
+        <Property Name="City" Type="Edm.String" />
+        <Property Name="State" Type="Edm.String" />
+        <Property Name="ZipCode" Type="Edm.String" />
+        <Property Name="Country" Type="Edm.String" />
+      </ComplexType>
+
+      <Association Name="Customer_Orders">
+        <End Type="ODataDemo.Customer" Role="Customer_Orders" Multiplicity="1" />
+        <End Type="ODataDemo.Order" Role="Order_Customer" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Customer_Orders">
+            <PropertyRef Name="ID" />
+          </Principal>
+          <Dependent Role="Order_Customer">
+            <PropertyRef Name="CustomerID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <Association Name="Order_OrderItems">
+        <End Type="ODataDemo.Order" Role="Order" Multiplicity="1" />
+        <End Type="ODataDemo.OrderItem" Role="OrderItems" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Order">
+            <PropertyRef Name="OrderID" />
+          </Principal>
+          <Dependent Role="OrderItems">
+            <PropertyRef Name="OrderID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <Association Name="Product_OrderItems">
+        <End Type="ODataDemo.Product" Role="Product" Multiplicity="1" />
+        <End Type="ODataDemo.OrderItem" Role="OrderItem" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Product">
+            <PropertyRef Name="ID" />
+          </Principal>
+          <Dependent Role="OrderItem">
+            <PropertyRef Name="ProductID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <EntityContainer Name="DemoService" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Products" EntityType="ODataDemo.Product" />
+        <EntitySet Name="Customers" EntityType="ODataDemo.Customer" />
+        <EntitySet Name="Orders" EntityType="ODataDemo.Order" />
+        <EntitySet Name="OrderItems" EntityType="ODataDemo.OrderItem" />
+
+        <FunctionImport
+          Name="GetProductsByRating"
+          ReturnType="Collection(ODataDemo.Product)"
+          EntitySet="Products"
+          m:HttpMethod="GET"
+        >
+          <Parameter Name="rating" Type="Edm.Int32" />
+        </FunctionImport>
+
+        <AssociationSet Name="Customers_Orders" Association="ODataDemo.Customer_Orders">
+          <End Role="Customer_Orders" EntitySet="Customers" />
+          <End Role="Order_Customer" EntitySet="Orders" />
+        </AssociationSet>
+
+        <AssociationSet Name="Orders_OrderItems" Association="ODataDemo.Order_OrderItems">
+          <End Role="Order" EntitySet="Orders" />
+          <End Role="OrderItems" EntitySet="OrderItems" />
+        </AssociationSet>
+
+        <AssociationSet Name="Products_OrderItems" Association="ODataDemo.Product_OrderItems">
+          <End Role="Product" EntitySet="Products" />
+          <End Role="OrderItem" EntitySet="OrderItems" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
 </edmx:Edmx>

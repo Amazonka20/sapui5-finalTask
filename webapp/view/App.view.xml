@@ -1,7 +1,12 @@
-<mvc:View controllerName="finalproject.controller.App"
-    displayBlock="true"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <App id="app">
-    </App>
+<mvc:View
+  controllerName="finalproject.controller.App"
+  displayBlock="true"
+  height="100%"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:mvc="sap.ui.core.mvc"
+>
+  <App id="app">
+    <f:FlexibleColumnLayout id="layout" backgroundDesign="Translucent" />
+  </App>
 </mvc:View>
