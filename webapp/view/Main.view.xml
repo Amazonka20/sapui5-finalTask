@@ -4,6 +4,7 @@
   xmlns:mvc="sap.ui.core.mvc"
   xmlns:core="sap.ui.core"
   xmlns:smart="sap.ui.comp.smarttable"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 >
   <Page title="Orders">
     <subHeader>
@@ -12,8 +13,16 @@
         <Button text="Create Order" type="Emphasized" press="onCreateOrder" />
       </Toolbar>
     </subHeader>
+
+    <smartFilterBar:SmartFilterBar id="ordersFilterBar" entitySet="Orders" liveMode="true">
+      <smartFilterBar:controlConfiguration>
+        <smartFilterBar:ControlConfiguration key="OrderID" visibleInAdvancedArea="true" />
+        <smartFilterBar:ControlConfiguration key="CustomerID" visibleInAdvancedArea="true" />
+      </smartFilterBar:controlConfiguration>
+    </smartFilterBar:SmartFilterBar>
     <smart:SmartTable
       id="ordersTable"
+      smartFilterId="ordersFilterBar"
       header="Orders catalog"
       entitySet="Orders"
       tableType="ResponsiveTable"
