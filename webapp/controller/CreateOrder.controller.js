@@ -40,12 +40,11 @@ sap.ui.define(
           return;
         }
         const oModel = this.getModel();
-        const oViewModel = this.getView().getModel("view");
 
         oModel.submitChanges({
           groupId: "createOrder",
           success: () => {
-            oViewModel.setProperty("/orderCreated", true);
+            this.getModel("view").setProperty("/orderCreated", true);
           },
           error: (oError) => {
             console.log(oError);
@@ -81,7 +80,11 @@ sap.ui.define(
         });
       },
       onNavBack() {
+        const bOrderCreated = this.getModel("view").getProperty("/orderCreated");
         this.getRouter().navTo("main");
+        if (!bOrderCreated) {
+          this._oTransientContext?.delete();
+        }
       },
 
       _initOrderItems() {
