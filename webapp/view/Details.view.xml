@@ -8,7 +8,15 @@
       <Toolbar>
         <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
         <ToolbarSpacer />
-        <Button text="Delete Order" type="Reject" press="onDelete" />
+        <Button text="Edit" press="onEdit" visible="{= !${view>/editMode} }" />
+        <Button text="Save" type="Emphasized" press="onSave" visible="{view>/editMode}" />
+        <Button text="Cancel" press="onCancel" visible="{view>/editMode}" />
+        <Button
+          text="Delete Order"
+          type="Reject"
+          press="onDelete"
+          visible="{= !${view>/editMode} }"
+        />
       </Toolbar>
     </subHeader>
     <HBox class="sapUiSmallMargin">
@@ -21,19 +29,37 @@
     <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
       <VBox class="sapUiContentPadding">
         <Text text="Order date" />
-        <Text text="{
-        path: 'OrderDate',
-        formatter: '.formatter.formatDate'}" />
+        <Text
+          text="{ path: 'OrderDate', formatter: '.formatter.formatDate' }"
+          visible="{= !${view>/editMode} }"
+        />
+        <DatePicker
+          dateValue="{OrderDate}"
+          displayFormat="dd MMM yyyy"
+          visible="{view>/editMode}"
+        />
 
         <Text text="Required date" class="sapUiSmallMarginTop" />
-        <Text text="{
-        path: 'RequiredDate',
-        formatter: '.formatter.formatDate'}" />
+        <Text
+          text="{ path: 'RequiredDate', formatter: '.formatter.formatDate' }"
+          visible="{= !${view>/editMode} }"
+        />
+        <DatePicker
+          dateValue="{RequiredDate}"
+          displayFormat="dd MMM yyyy"
+          visible="{view>/editMode}"
+        />
 
         <Text text="Shipped date" class="sapUiSmallMarginTop" />
-        <Text text="{
-        path: 'ShippedDate',
-        formatter: '.formatter.formatDate'}" />
+        <Text
+          text="{ path: 'ShippedDate', formatter: '.formatter.formatDate' }"
+          visible="{= !${view>/editMode} }"
+        />
+        <DatePicker
+          dateValue="{ShippedDate}"
+          displayFormat="dd MMM yyyy"
+          visible="{view>/editMode}"
+        />
       </VBox>
 
       <VBox class="sapUiContentPadding">
@@ -61,8 +87,16 @@
           <cells>
             <Text text="{ProductID}" />
             <Text text="{Product/Name}" />
-            <Text text="{Quantity}" />
-            <Text text="{UnitPrice}" />
+
+            <VBox>
+              <Text text="{Quantity}" visible="{= !${view>/editMode} }" />
+              <Input value="{Quantity}" type="Number" visible="{view>/editMode}" />
+            </VBox>
+
+            <VBox>
+              <Text text="{UnitPrice}" visible="{= !${view>/editMode} }" />
+              <Input value="{UnitPrice}" type="Number" visible="{view>/editMode}" />
+            </VBox>
           </cells>
         </ColumnListItem>
       </items>

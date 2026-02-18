@@ -4,14 +4,20 @@ sap.ui.define(
     "finalproject/model/formatter",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel",
   ],
-  function (BaseController, formatter, MessageToast, MessageBox) {
+  function (BaseController, formatter, MessageToast, MessageBox, JSONModel) {
     "use strict";
 
     return BaseController.extend("finalproject.controller.Details", {
       formatter: formatter,
       onInit() {
+        const oViewModel = new JSONModel({
+          editMode: false,
+        });
+
         this.getRouter().getRoute("details").attachPatternMatched(this._onRouteMatched, this);
+        this.getView().setModel(oViewModel, "view");
       },
 
       _onRouteMatched(oEvent) {
@@ -19,6 +25,26 @@ sap.ui.define(
         this.getView().bindElement({
           path: `/Orders(${sId})`,
           parameters: { expand: "Customer,Items,Items/Product" },
+        });
+        this.getModel("view").setProperty("/editMode", false);
+      },
+
+      onEdit() {
+        this.getModel("view").setProperty("/editMode", true);
+      },
+      onCancel() {
+        this.getModel().resetChanges();
+        this.getModel("view").setProperty("/editMode", false);
+      },
+      onSave() {
+        this.getModel().submitChanges({
+          success: () => {
+            MessageToast.show("Order updated.");
+            this.getView().getModel("view").setProperty("/editMode", false);
+          },
+          error: () => {
+            MessageToast.show("Update failed.");
+          },
         });
       },
 
