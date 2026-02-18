@@ -3,44 +3,48 @@
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns:core="sap.ui.core"
+  xmlns:smart="sap.ui.comp.smarttable"
 >
   <Page title="Orders">
     <subHeader>
       <Toolbar>
         <ToolbarSpacer />
-        <Label text="Customers" />
-        <ComboBox
-          id="filter"
-          items="{/Customers}"
-          selectedKey="{view>/selectedFilterKey}"
-          selectionChange="onFilter"
-          width="30%"
-          showClearIcon="true"
-        >
-          <core:Item key="{ID}" text="{Name}" />
-        </ComboBox>
+        <Button text="Create Order" type="Emphasized" press="onCreateOrder" />
       </Toolbar>
     </subHeader>
-    <List id="orderList" items="{path: '/Orders', parameters: { expand: 'Customer' }}">
-      <ObjectListItem
-        title="Order #{OrderID}"
-        intro="{Customer/Name}"
-        number="{Freight}"
-        numberUnit="USD"
-        press="onPress"
-        type="Navigation"
-      >
-        <attributes>
-          <ObjectAttribute
-            title="Required"
-            text="{path: 'RequiredDate', formatter: '.formatter.formatDate'}"
-          />
-          <ObjectAttribute
-            title="Shipped"
-            text="{path: 'ShippedDate', formatter: '.formatter.formatDate'}"
-          />
-        </attributes>
-      </ObjectListItem>
-    </List>
+    <smart:SmartTable
+      id="ordersTable"
+      header="Orders catalog"
+      entitySet="Orders"
+      tableType="ResponsiveTable"
+      enableAutoBinding="true"
+      showRowCount="true"
+      initiallyVisibleFields="OrderID,RequiredDate,ShippedDate,Freight"
+      useVariantManagement="true"
+      useTablePersonalisation="true"
+      beforeRebindTable="onBeforeRebindTable"
+    >
+      <Table>
+        <columns>
+          <Column hAlign="Left">
+            <customData>
+              <core:CustomData
+                key="p13nData"
+                value='{"columnKey":"CustomerName","leadingProperty":"Customer/Name"}'
+                writeToDom="true"
+              />
+            </customData>
+            <Text text="Customer" />
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Navigation" press="onOrderPress">
+            <cells>
+              <Text text="{Customer/Name}" />
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </smart:SmartTable>
   </Page>
 </mvc:View>

@@ -62,7 +62,7 @@
         "type": "sap.ui.model.odata.v2.ODataModel",
         "settings": {
           "defaultBindingMode": "TwoWay",
-          "useBatch": false
+          "useBatch": true
         }
       },
       "i18n": {
@@ -97,11 +97,18 @@
           "target": "details",
           "pattern": "details/{orderID}",
           "layout": "TwoColumnsMidExpanded"
+        },
+        {
+          "name": "createOrder",
+          "target": "createOrder",
+          "pattern": "create-order",
+          "layout": "TwoColumnsMidExpanded"
         }
       ],
       "targets": {
         "main": { "name": "Main", "controlAggregation": "beginColumnPages" },
-        "details": { "name": "Details", "controlAggregation": "midColumnPages" }
+        "details": { "name": "Details", "controlAggregation": "midColumnPages" },
+        "createOrder": { "name": "CreateOrder", "controlAggregation": "midColumnPages" }
       }
     },
     "rootView": {

@@ -4,8 +4,68 @@
   xmlns="sap.m"
 >
   <Page id="detailsPage" title="Order #{OrderID}">
-    <ObjectHeader title="{Customer/Name}" number="{Freight}" numberUnit="USD" />
-    <Text text="Required: {RequiredDate}" />
-    <Text text="Shipped: {ShippedDate}" />
+    <subHeader>
+      <Toolbar>
+        <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
+        <ToolbarSpacer />
+        <Button text="Delete Order" type="Reject" press="onDelete" />
+      </Toolbar>
+    </subHeader>
+    <HBox class="sapUiSmallMargin">
+      <Title text="Customer: {Customer/Name}" />
+    </HBox>
+    <HBox class="sapUiSmallMargin">
+      <Title text="Order: {OrderID}" />
+    </HBox>
+
+    <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+      <VBox class="sapUiContentPadding">
+        <Text text="Order date" />
+        <Text text="{
+        path: 'OrderDate',
+        formatter: '.formatter.formatDate'}" />
+
+        <Text text="Required date" class="sapUiSmallMarginTop" />
+        <Text text="{
+        path: 'RequiredDate',
+        formatter: '.formatter.formatDate'}" />
+
+        <Text text="Shipped date" class="sapUiSmallMarginTop" />
+        <Text text="{
+        path: 'ShippedDate',
+        formatter: '.formatter.formatDate'}" />
+      </VBox>
+
+      <VBox class="sapUiContentPadding">
+        <Text text="Freight" />
+        <Text text="{Freight}" />
+      </VBox>
+    </HBox>
+    <Table id="orderItemsTable2" headerText="Order items" items="{path: 'Items'}">
+      <columns>
+        <Column>
+          <Text text="Product ID" />
+        </Column>
+        <Column>
+          <Text text="Product Name" />
+        </Column>
+        <Column>
+          <Text text="Quantity" />
+        </Column>
+        <Column>
+          <Text text="Unit Price" />
+        </Column>
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+            <Text text="{ProductID}" />
+            <Text text="{Product/Name}" />
+            <Text text="{Quantity}" />
+            <Text text="{UnitPrice}" />
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
   </Page>
 </mvc:View>

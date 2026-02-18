@@ -6,32 +6,24 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "finalproject/model/formatter",
   ],
-  (BaseController, JSONModel, Filter, FilterOperator, formatter) => {
+  (BaseController, formatter) => {
     "use strict";
 
     return BaseController.extend("finalproject.controller.Main", {
       formatter: formatter,
-      onInit() {
-        const oUI = new JSONModel({
-          selectedFilterKey: "",
-        });
-        this.getView().setModel(oUI, "view");
-      },
+      onInit() {},
 
-      onPress(oEvent) {
+      onOrderPress(oEvent) {
         const sId = oEvent.getSource().getBindingContext().getProperty("OrderID");
         this.getRouter().navTo("details", { orderID: sId });
       },
-      onFilter() {
-        const oBindingList = this.byId("orderList").getBinding("items");
-        const iCustomerId = this.getModel("view").getProperty("/selectedFilterKey");
 
-        const oFilter = new Filter("CustomerID", FilterOperator.EQ, iCustomerId);
-        if (iCustomerId) {
-          oBindingList.filter([oFilter]);
-        } else {
-          oBindingList.filter([]);
-        }
+      onBeforeRebindTable(oEvent) {
+        const mBindingParams = oEvent.getParameter("bindingParams");
+        mBindingParams.parameters.expand = "Customer";
+      },
+      onCreateOrder() {
+        this.getRouter().navTo("createOrder");
       },
     });
   }
