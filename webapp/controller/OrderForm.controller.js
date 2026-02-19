@@ -118,37 +118,6 @@ sap.ui.define(
         this.getRouter().navTo("main");
       },
 
-      // _initOrderItems() {
-      //   const oTable = this._getProductsTable();
-      //   const oModel = this.getModel();
-
-      //   this.getView().setModel(oModel, "orderItem");
-
-      //   const fnBind = () => {
-      //     oTable.getItems().forEach((oRow) => {
-      //       const oProduct = oRow.getBindingContext().getObject();
-
-      //       const oContext = oModel.createEntry("/OrderItems", {
-      //         properties: {
-      //           OrderID: null,
-      //           ProductID: oProduct.ID,
-      //           UnitPrice: oProduct.Price,
-      //           Quantity: 0,
-      //         },
-      //         groupId: "createOrderItems",
-      //       });
-
-      //       oRow.setBindingContext(oContext, "orderItem");
-      //     });
-      //   };
-
-      //   if (oTable.getItems().length > 0) {
-      //     fnBind();
-      //   } else {
-      //     oTable.attachEventOnce("updateFinished", fnBind);
-      //   }
-      // },
-
       _validateOrder() {
         const oContext = this._oTransientContext || this.getView().getBindingContext();
         if (!oContext) {
