@@ -1,0 +1,82 @@
+<mvc:View
+  controllerName="finalproject.controller.OrderForm"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+>
+  <Page>
+    <customHeader>
+      <Toolbar>
+        <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
+        <Title
+          text="{= ${view>/editMode} ? 'Order: ' + ${OrderID} : 'New Order' }"
+          class="sapUiSmallMarginBegin"
+        />
+        <ToolbarSpacer />
+      </Toolbar>
+    </customHeader>
+    <content>
+      <VBox class="sapUiSmallMargin">
+        <Label text="Customer" required="true" />
+        <ComboBox id="customerSelect" items="{/Customers}" selectedKey="{CustomerID}" width="40%">
+          <core:Item key="{ID}" text="{Name}" />
+        </ComboBox>
+
+        <Label text="Order Date" class="sapUiSmallMarginTop" required="true" />
+        <DatePicker
+          id="orderDatePicker"
+          dateValue="{OrderDate}"
+          displayFormat="dd MMM yyy"
+          width="40%"
+        />
+
+        <Label text="Required Date" class="sapUiSmallMarginTop" required="true" />
+        <DatePicker
+          id="requiredDatePicker"
+          dateValue="{RequiredDate}"
+          displayFormat="dd MMM yyy"
+          width="40%"
+        />
+
+        <Label text="Shipped Date" class="sapUiSmallMarginTop" />
+        <DatePicker dateValue="{ShippedDate}" displayFormat="dd MMM yyy" width="40%" />
+
+        <Table id="productsTable" items="{Items}" class="sapUiSmallMarginTop">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Products" />
+              <ToolbarSpacer />
+              <Button text="Add Product" press="onAddProduct" visible="{= !${view>/editMode} }" />
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column>
+              <Text text="Name" />
+            </Column>
+            <Column>
+              <Text text="Quantity" />
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <ComboBox items="{/Products}" selectedKey="{ProductID}">
+                  <core:Item key="{ID}" text="{Name}" />
+                </ComboBox>
+                <Input value="{Quantity}" type="Number" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+    </content>
+    <footer>
+      <Toolbar>
+        <Button text="Create order" press="onCreateOrder" visible="{= !${view>/editMode} }" />
+        <Button text="Save" type="Emphasized" press="onSave" visible="{view>/editMode}" />
+        <Button text="Cancel" press="onCancel" visible="{view>/editMode}" />
+        <ToolbarSpacer />
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

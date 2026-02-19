@@ -23,7 +23,7 @@ sap.ui.define(
       _onRouteMatched(oEvent) {
         const sId = oEvent.getParameter("arguments").orderID;
         this.getView().bindElement({
-          path: `/Orders(${sId})`,
+          path: `/Orders('${sId}')`,
           parameters: { expand: "Customer,Items,Items/Product" },
         });
         this.getModel("view").setProperty("/editMode", false);

@@ -3,8 +3,8 @@
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
 >
-  <Page id="detailsPage" title="Order #{OrderID}">
-    <subHeader>
+  <Page id="detailsPage">
+    <customHeader>
       <Toolbar>
         <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
         <ToolbarSpacer />
@@ -18,12 +18,12 @@
           visible="{= !${view>/editMode} }"
         />
       </Toolbar>
-    </subHeader>
-    <HBox class="sapUiSmallMargin">
-      <Title text="Customer: {Customer/Name}" />
-    </HBox>
+    </customHeader>
     <HBox class="sapUiSmallMargin">
       <Title text="Order: {OrderID}" />
+    </HBox>
+    <HBox class="sapUiSmallMargin">
+      <Title text="Customer: {Customer/Name}" />
     </HBox>
 
     <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
@@ -64,10 +64,12 @@
 
       <VBox class="sapUiContentPadding">
         <Text text="Freight" />
-        <Text text="{Freight}" />
+        <Text
+          text="{ parts: [ {path: 'Freight'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency' }"
+        />
       </VBox>
     </HBox>
-    <Table id="orderItemsTable2" headerText="Order items" items="{path: 'Items'}">
+    <Table id="orderItemsTable2" headerText="Order items" items="{Items}">
       <columns>
         <Column>
           <Text text="Product ID" />
@@ -89,13 +91,14 @@
             <Text text="{Product/Name}" />
 
             <VBox>
-              <Text text="{Quantity}" visible="{= !${view>/editMode} }" />
+              <Text text="{= ${Quantity} + ' pcs' }" visible="{= !${view>/editMode} }" />
               <Input value="{Quantity}" type="Number" visible="{view>/editMode}" />
             </VBox>
 
             <VBox>
-              <Text text="{UnitPrice}" visible="{= !${view>/editMode} }" />
-              <Input value="{UnitPrice}" type="Number" visible="{view>/editMode}" />
+              <Text
+                text="{ parts: [ {path: 'UnitPrice'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency' }"
+              />
             </VBox>
           </cells>
         </ColumnListItem>

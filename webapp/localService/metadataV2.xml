@@ -4,12 +4,16 @@
     m:DataServiceVersion="2.0"
     m:MaxDataServiceVersion="2.0"
   >
-    <Schema xmlns="http://schemas.microsoft.com/ado/2007/05/edm" Namespace="ODataDemo">
+    <Schema
+      xmlns="http://schemas.microsoft.com/ado/2007/05/edm"
+      xmlns:sap="http://www.sap.com/Protocols/SAPData"
+      Namespace="ODataDemo"
+    >
       <EntityType Name="Product">
         <Key>
           <PropertyRef Name="ID" />
         </Key>
-        <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ID" Type="Edm.String" Nullable="false" />
         <Property
           Name="Name"
           Type="Edm.String"
@@ -40,7 +44,7 @@
         <Key>
           <PropertyRef Name="ID" />
         </Key>
-        <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ID" Type="Edm.String" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Address" Type="ODataDemo.Address" Nullable="false" />
         <Property Name="Concurrency" Type="Edm.Int32" ConcurrencyMode="Fixed" Nullable="false" />
@@ -56,12 +60,18 @@
         <Key>
           <PropertyRef Name="OrderID" />
         </Key>
-        <Property Name="OrderID" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CustomerID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrderID" Type="Edm.String" Nullable="false" />
+        <Property Name="CustomerID" Type="Edm.String" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="RequiredDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="ShippedDate" Type="Edm.DateTime" />
-        <Property Name="Freight" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Freight" Type="Edm.Decimal" Nullable="false" sap:unit="Currency" />
+        <Property
+          Name="Currency"
+          Type="Edm.String"
+          Nullable="false"
+          sap:semantics="currency-code"
+        />
         <NavigationProperty
           Name="Customer"
           Relationship="ODataDemo.Customer_Orders"
@@ -81,10 +91,16 @@
           <PropertyRef Name="OrderID" />
           <PropertyRef Name="ProductID" />
         </Key>
-        <Property Name="OrderID" Type="Edm.Int32" Nullable="false" />
-        <Property Name="ProductID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrderID" Type="Edm.String" Nullable="false" />
+        <Property Name="ProductID" Type="Edm.String" Nullable="false" />
         <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
-        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" sap:unit="Currency" />
+        <Property
+          Name="Currency"
+          Type="Edm.String"
+          Nullable="false"
+          sap:semantics="currency-code"
+        />
         <NavigationProperty
           Name="Product"
           Relationship="ODataDemo.Product_OrderItems"

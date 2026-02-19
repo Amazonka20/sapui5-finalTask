@@ -1,6 +1,6 @@
 [
   {
-    "ID": 1,
+    "ID": "1",
     "Name": "Espresso Blend",
     "Description": "Dark roast, rich crema",
     "ReleaseDate": "2024-02-12T00:00:00",
@@ -9,7 +9,7 @@
     "Price": "9.90"
   },
   {
-    "ID": 2,
+    "ID": "2",
     "Name": "House Blend",
     "Description": "Medium roast, balanced taste",
     "ReleaseDate": "2023-09-05T00:00:00",
@@ -18,7 +18,7 @@
     "Price": "8.50"
   },
   {
-    "ID": 3,
+    "ID": "3",
     "Name": "Single Origin Ethiopia",
     "Description": "Floral, citrus notes",
     "ReleaseDate": "2022-05-20T00:00:00",
@@ -27,7 +27,7 @@
     "Price": "12.20"
   },
   {
-    "ID": 4,
+    "ID": "4",
     "Name": "Single Origin Colombia",
     "Description": "Chocolate and caramel notes",
     "ReleaseDate": "2021-11-01T00:00:00",
@@ -36,7 +36,7 @@
     "Price": "11.80"
   },
   {
-    "ID": 5,
+    "ID": "5",
     "Name": "Decaf Blend",
     "Description": "Smooth decaf, no bitterness",
     "ReleaseDate": "2023-01-15T00:00:00",
@@ -45,7 +45,7 @@
     "Price": "9.20"
   },
   {
-    "ID": 6,
+    "ID": "6",
     "Name": "Cold Brew Coarse Grind",
     "Description": "Coarse grind for cold brew",
     "ReleaseDate": "2022-08-30T00:00:00",
@@ -54,7 +54,7 @@
     "Price": "10.40"
   },
   {
-    "ID": 7,
+    "ID": "7",
     "Name": "Organic Peru",
     "Description": "Light roast, clean finish",
     "ReleaseDate": "2024-03-01T00:00:00",
@@ -63,7 +63,7 @@
     "Price": "12.00"
   },
   {
-    "ID": 8,
+    "ID": "8",
     "Name": "French Roast",
     "Description": "Smoky, very dark roast",
     "ReleaseDate": "2022-10-10T00:00:00",

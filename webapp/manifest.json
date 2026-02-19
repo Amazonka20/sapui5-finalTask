@@ -99,16 +99,16 @@
           "layout": "TwoColumnsMidExpanded"
         },
         {
-          "name": "createOrder",
-          "target": "createOrder",
-          "pattern": "create-order",
+          "name": "orderForm",
+          "target": "orderForm",
+          "pattern": "order-form/:orderID:",
           "layout": "TwoColumnsMidExpanded"
         }
       ],
       "targets": {
         "main": { "name": "Main", "controlAggregation": "beginColumnPages" },
         "details": { "name": "Details", "controlAggregation": "midColumnPages" },
-        "createOrder": { "name": "CreateOrder", "controlAggregation": "midColumnPages" }
+        "orderForm": { "name": "OrderForm", "controlAggregation": "midColumnPages" }
       }
     },
     "rootView": {

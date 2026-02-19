@@ -4,18 +4,16 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "finalproject/model/formatter",
   ],
-  (BaseController, formatter) => {
+  (BaseController) => {
     "use strict";
 
     return BaseController.extend("finalproject.controller.Main", {
-      formatter: formatter,
       onInit() {},
 
       onOrderPress(oEvent) {
         const sId = oEvent.getSource().getBindingContext().getProperty("OrderID");
-        this.getRouter().navTo("details", { orderID: sId });
+        this.getRouter().navTo("orderForm", { orderID: sId });
       },
 
       onBeforeRebindTable(oEvent) {
@@ -23,7 +21,7 @@ sap.ui.define(
         mBindingParams.parameters.expand = "Customer";
       },
       onCreateOrder() {
-        this.getRouter().navTo("createOrder");
+        this.getRouter().navTo("orderForm");
       },
     });
   }
