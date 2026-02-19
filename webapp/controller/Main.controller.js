@@ -13,7 +13,7 @@ sap.ui.define(
 
       onOrderPress(oEvent) {
         const sId = oEvent.getSource().getBindingContext().getProperty("OrderID");
-        this.getRouter().navTo("orderForm", { orderID: sId });
+        this.getRouter().navTo("details", { orderID: sId });
       },
 
       onBeforeRebindTable(oEvent) {
@@ -21,7 +21,7 @@ sap.ui.define(
         mBindingParams.parameters.expand = "Customer";
       },
       onCreateOrder() {
-        this.getRouter().navTo("orderForm");
+        this.getRouter().navTo("details");
       },
     });
   }

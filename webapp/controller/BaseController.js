@@ -6,7 +6,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], (Controller) => {
     },
 
     getI18nText(sText, aArgs) {
-      return this.getOwnerComponent().getModel("i18n").getResourseBoundle().getText(sText, aArgs);
+      return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sText, aArgs);
     },
     getRouter() {
       return this.getOwnerComponent().getRouter();

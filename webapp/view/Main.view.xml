@@ -18,7 +18,7 @@
     <smart:SmartTable
       id="ordersTable"
       smartFilterId="ordersFilterBar"
-      header="Orders catalog"
+      header="{i18n>tableHeader}"
       enableCopy="false"
       entitySet="Orders"
       tableType="ResponsiveTable"
@@ -30,7 +30,7 @@
       <smart:customToolbar>
         <OverflowToolbar>
           <ToolbarSpacer />
-          <Button text="Create Order" type="Emphasized" press="onCreateOrder" />
+          <Button text="{i18n>createOrderBtn}" type="Emphasized" press="onCreateOrder" />
         </OverflowToolbar>
       </smart:customToolbar>
       <Table>
@@ -43,7 +43,7 @@
                 writeToDom="true"
               />
             </customData>
-            <Text text="Customer" />
+            <Text text="{i18n>columnCustomer}" />
           </Column>
 
           <Column hAlign="Left">
@@ -54,7 +54,7 @@
                 writeToDom="true"
               />
             </customData>
-            <Text text="Shipped Date" />
+            <Text text="{i18n>columnShippedDate}" />
           </Column>
         </columns>
         <items>

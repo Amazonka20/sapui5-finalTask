@@ -1,108 +1,180 @@
 <mvc:View
   controllerName="finalproject.controller.Details"
-  xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
 >
-  <Page id="detailsPage">
+  <Page>
     <customHeader>
       <Toolbar>
         <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
+        <Title
+          text="{= ${OrderID} ? ${i18n>detailsTitlePrefix} + ${OrderID} : ${i18n>detailsTitleNew} }"
+          class="sapUiSmallMarginBegin"
+        />
         <ToolbarSpacer />
-        <Button text="Edit" press="onEdit" visible="{= !${view>/editMode} }" />
-        <Button text="Save" type="Emphasized" press="onSave" visible="{view>/editMode}" />
-        <Button text="Cancel" press="onCancel" visible="{view>/editMode}" />
         <Button
-          text="Delete Order"
+          text="{i18n>btnEdit}"
+          press="onEdit"
+          visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+        />
+        <Button
+          text="{i18n>btnSave}"
+          type="Emphasized"
+          press="onSave"
+          visible="{= ${view>/editMode} ? !!${OrderID} : false }"
+        />
+        <Button
+          text="{i18n>btnCancel}"
+          press="onCancel"
+          visible="{= ${view>/editMode} ? !!${OrderID} : false }"
+        />
+        <Button
+          text="{i18n>btnDeleteOrder}"
           type="Reject"
           press="onDelete"
-          visible="{= !${view>/editMode} }"
+          visible="{= !${view>/editMode} ? !!${OrderID} : false }"
         />
       </Toolbar>
     </customHeader>
-    <HBox class="sapUiSmallMargin">
-      <Title text="Order: {OrderID}" />
-    </HBox>
-    <HBox class="sapUiSmallMargin">
-      <Title text="Customer: {Customer/Name}" />
-    </HBox>
+    <content>
+      <VBox class="sapUiSmallMargin">
+        <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+          <VBox class="sapUiContentPadding">
+            <Label
+              text="{i18n>labelCustomer}"
+              required="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+            <Text text="{Customer/Name}" visible="{= !${view>/editMode} ? !!${OrderID} : false }" />
+            <ComboBox
+              id="customerSelect"
+              items="{/Customers}"
+              selectedKey="{CustomerID}"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            >
+              <core:Item key="{ID}" text="{Name}" />
+            </ComboBox>
 
-    <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
-      <VBox class="sapUiContentPadding">
-        <Text text="Order date" />
-        <Text
-          text="{ path: 'OrderDate', formatter: '.formatter.formatDate' }"
-          visible="{= !${view>/editMode} }"
-        />
-        <DatePicker
-          dateValue="{OrderDate}"
-          displayFormat="dd MMM yyyy"
-          visible="{view>/editMode}"
-        />
+            <Label
+              text="{i18n>labelOrderDate}"
+              class="sapUiSmallMarginTop"
+              required="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+            <Text
+              text="{ path: 'OrderDate', formatter: '.formatter.formatDate' }"
+              visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+            />
+            <DatePicker
+              id="orderDatePicker"
+              dateValue="{OrderDate}"
+              displayFormat="dd MMM yyyy"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
 
-        <Text text="Required date" class="sapUiSmallMarginTop" />
-        <Text
-          text="{ path: 'RequiredDate', formatter: '.formatter.formatDate' }"
-          visible="{= !${view>/editMode} }"
-        />
-        <DatePicker
-          dateValue="{RequiredDate}"
-          displayFormat="dd MMM yyyy"
-          visible="{view>/editMode}"
-        />
+            <Label
+              text="{i18n>labelRequiredDate}"
+              class="sapUiSmallMarginTop"
+              required="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+            <Text
+              text="{ path: 'RequiredDate', formatter: '.formatter.formatDate' }"
+              visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+            />
+            <DatePicker
+              id="requiredDatePicker"
+              dateValue="{RequiredDate}"
+              displayFormat="dd MMM yyyy"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
 
-        <Text text="Shipped date" class="sapUiSmallMarginTop" />
-        <Text
-          text="{ path: 'ShippedDate', formatter: '.formatter.formatDate' }"
-          visible="{= !${view>/editMode} }"
-        />
-        <DatePicker
-          dateValue="{ShippedDate}"
-          displayFormat="dd MMM yyyy"
-          visible="{view>/editMode}"
-        />
-      </VBox>
+            <Label text="{i18n>labelShippedDate}" class="sapUiSmallMarginTop" />
+            <Text
+              text="{ path: 'ShippedDate', formatter: '.formatter.formatDate' }"
+              visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+            />
+            <DatePicker
+              dateValue="{ShippedDate}"
+              displayFormat="dd MMM yyyy"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+          </VBox>
 
-      <VBox class="sapUiContentPadding">
-        <Text text="Freight" />
-        <Text
-          text="{ parts: [ {path: 'Freight'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency' }"
-        />
-      </VBox>
-    </HBox>
-    <Table id="orderItemsTable2" headerText="Order items" items="{Items}">
-      <columns>
-        <Column>
-          <Text text="Product ID" />
-        </Column>
-        <Column>
-          <Text text="Product Name" />
-        </Column>
-        <Column>
-          <Text text="Quantity" />
-        </Column>
-        <Column>
-          <Text text="Unit Price" />
-        </Column>
-      </columns>
-      <items>
-        <ColumnListItem>
-          <cells>
-            <Text text="{ProductID}" />
-            <Text text="{Product/Name}" />
+          <VBox class="sapUiContentPadding">
+            <Label text="{i18n>labelFreight}" />
+            <Text
+              text="{ parts: [ {path: 'Freight'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency' }"
+            />
+          </VBox>
+        </HBox>
 
-            <VBox>
-              <Text text="{= ${Quantity} + ' pcs' }" visible="{= !${view>/editMode} }" />
-              <Input value="{Quantity}" type="Number" visible="{view>/editMode}" />
-            </VBox>
-
-            <VBox>
-              <Text
-                text="{ parts: [ {path: 'UnitPrice'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency' }"
+        <Table id="productsTable" items="{Items}" class="sapUiSmallMarginTop">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="{i18n>orderItemsTitle}" />
+              <ToolbarSpacer />
+              <Button
+                text="{i18n>btnAddProduct}"
+                press="onAddProduct"
+                visible="{= !${view>/editMode} ? !${OrderID} : false }"
               />
-            </VBox>
-          </cells>
-        </ColumnListItem>
-      </items>
-    </Table>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column>
+              <Text text="{i18n>columnProductName}" />
+            </Column>
+            <Column>
+              <Text text="{i18n>columnQuantity}" />
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <VBox>
+                  <Text
+                    text="{Product/Name}"
+                    visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+                  />
+                  <ComboBox
+                    items="{/Products}"
+                    selectedKey="{ProductID}"
+                    visible="{= ${view>/editMode} ? true : !${OrderID} }"
+                  >
+                    <core:Item key="{ID}" text="{Name}" />
+                  </ComboBox>
+                </VBox>
+                <VBox>
+                  <Text
+                    text="{= ${Quantity} + ${i18n>quantityUnit} }"
+                    visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+                  />
+                  <Input
+                    value="{Quantity}"
+                    type="Number"
+                    visible="{= ${view>/editMode} ? true : !${OrderID} }"
+                  />
+                </VBox>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+    </content>
+    <footer>
+      <Toolbar>
+        <Button
+          text="{i18n>btnCreateOrder}"
+          press="onCreateOrder"
+          type="Emphasized"
+          visible="{= !${OrderID} }"
+        />
+        <Button text="{i18n>btnCancel}" press="onCancel" visible="{= !${OrderID} }" />
+        <ToolbarSpacer />
+      </Toolbar>
+    </footer>
   </Page>
 </mvc:View>

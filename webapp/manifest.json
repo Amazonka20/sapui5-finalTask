@@ -91,24 +91,28 @@
         "viewPath": "finalproject.view"
       },
       "routes": [
-        { "name": "main", "pattern": "", "target": "main", "layout": "OneColumn" },
+        {
+          "name": "main",
+          "pattern": "",
+          "target": "main",
+          "layout": "OneColumn"
+        },
         {
           "name": "details",
           "target": "details",
-          "pattern": "details/{orderID}",
-          "layout": "TwoColumnsMidExpanded"
-        },
-        {
-          "name": "orderForm",
-          "target": "orderForm",
-          "pattern": "order-form/:orderID:",
+          "pattern": "details/:orderID:",
           "layout": "TwoColumnsMidExpanded"
         }
       ],
       "targets": {
-        "main": { "name": "Main", "controlAggregation": "beginColumnPages" },
-        "details": { "name": "Details", "controlAggregation": "midColumnPages" },
-        "orderForm": { "name": "OrderForm", "controlAggregation": "midColumnPages" }
+        "main": {
+          "name": "Main",
+          "controlAggregation": "beginColumnPages"
+        },
+        "details": {
+          "name": "Details",
+          "controlAggregation": "midColumnPages"
+        }
       }
     },
     "rootView": {
