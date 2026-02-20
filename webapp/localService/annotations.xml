@@ -1,0 +1,21 @@
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ODataDemo.Order/CustomerID">
+  <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+    <Record>
+      <PropertyValue Property="CollectionPath" String="Customers" />
+      <PropertyValue Property="Parameters">
+        <Collection>
+          <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+            <PropertyValue Property="LocalDataProperty" PropertyPath="CustomerID" />
+            <PropertyValue Property="ValueListProperty" String="ID" />
+          </Record>
+          <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+            <PropertyValue Property="ValueListProperty" String="ID" />
+          </Record>
+          <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+            <PropertyValue Property="ValueListProperty" String="Name" />
+          </Record>
+        </Collection>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</Annotations>

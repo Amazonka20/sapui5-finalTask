@@ -20,8 +20,13 @@
         "uri": "/odata/v2/",
         "type": "OData",
         "settings": {
+          "annotations": ["localAnnotations"],
           "odataVersion": "2.0"
         }
+      },
+      "localAnnotations": {
+        "uri": "localService/annotations.xml",
+        "type": "ODataAnnotation"
       }
     }
   },

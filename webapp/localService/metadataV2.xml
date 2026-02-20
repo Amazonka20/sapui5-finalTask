@@ -61,13 +61,7 @@
           <PropertyRef Name="OrderID" />
         </Key>
         <Property Name="OrderID" Type="Edm.String" Nullable="false" />
-        <Property
-          Name="CustomerID"
-          Type="Edm.String"
-          Nullable="false"
-          sap:value-list="standard"
-          sap:label="Customer"
-        />
+        <Property Name="CustomerID" Type="Edm.String" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="RequiredDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="ShippedDate" Type="Edm.DateTime" />
@@ -198,31 +192,6 @@
           <End Role="OrderItem" EntitySet="OrderItems" />
         </AssociationSet>
       </EntityContainer>
-
-      <Annotations
-        xmlns="http://docs.oasis-open.org/odata/ns/edm"
-        Target="ODataDemo.Order/CustomerID"
-      >
-        <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
-          <Record>
-            <PropertyValue Property="CollectionPath" String="Customers" />
-            <PropertyValue Property="Parameters">
-              <Collection>
-                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
-                  <PropertyValue Property="LocalDataProperty" PropertyPath="CustomerID" />
-                  <PropertyValue Property="ValueListProperty" String="ID" />
-                </Record>
-                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
-                  <PropertyValue Property="ValueListProperty" String="ID" />
-                </Record>
-                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
-                  <PropertyValue Property="ValueListProperty" String="Name" />
-                </Record>
-              </Collection>
-            </PropertyValue>
-          </Record>
-        </Annotation>
-      </Annotations>
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>

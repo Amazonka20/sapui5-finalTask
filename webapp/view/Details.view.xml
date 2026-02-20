@@ -9,7 +9,14 @@
       <Toolbar>
         <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
         <Title
-          text="{= ${OrderID} ? ${i18n>detailsTitlePrefix} + ${OrderID} : ${i18n>detailsTitleNew} }"
+          text="{
+                parts: [
+                  {path: 'i18n>detailsTitlePrefix'},
+                  {path: 'i18n>detailsTitleNew'},
+                  {path: 'OrderID'}
+                ],
+                formatter: '.formatter.formatTitle'
+              }"
           class="sapUiSmallMarginBegin"
         />
         <ToolbarSpacer />
@@ -149,7 +156,13 @@
                 </VBox>
                 <VBox>
                   <Text
-                    text="{= ${Quantity} + ${i18n>quantityUnit} }"
+                    text="{
+                            parts: [
+                              {path: 'i18n>quantityUnit'},
+                              {path: 'Quantity'}
+                            ],
+                            formatter: '.formatter.formatMessage'
+                          }"
                     visible="{= !${view>/editMode} ? !!${OrderID} : false }"
                   />
                   <Input
