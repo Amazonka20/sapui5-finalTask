@@ -6,6 +6,16 @@ metadata:
 type: application
 server:
   customMiddleware:
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /odata/v2
+            metadataPath: ./webapp/localService/metadataV2.xml
+            mockdataPath: ./webapp/localService/mockdata
+            generateMockData: false
+
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:

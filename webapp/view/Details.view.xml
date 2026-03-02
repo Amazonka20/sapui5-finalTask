@@ -1,0 +1,193 @@
+<mvc:View
+  controllerName="finalproject.controller.Details"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+>
+  <Page>
+    <customHeader>
+      <Toolbar>
+        <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" />
+        <Title
+          text="{
+                parts: [
+                  {path: 'i18n>detailsTitlePrefix'},
+                  {path: 'i18n>detailsTitleNew'},
+                  {path: 'OrderID'}
+                ],
+                formatter: '.formatter.formatTitle'
+              }"
+          class="sapUiSmallMarginBegin"
+        />
+        <ToolbarSpacer />
+        <Button
+          text="{i18n>btnEdit}"
+          press="onEdit"
+          visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+        />
+        <Button
+          text="{i18n>btnSave}"
+          type="Emphasized"
+          press="onSave"
+          visible="{= ${view>/editMode} ? !!${OrderID} : false }"
+        />
+        <Button
+          text="{i18n>btnCancel}"
+          press="onCancel"
+          visible="{= ${view>/editMode} ? !!${OrderID} : false }"
+        />
+        <Button
+          text="{i18n>btnDeleteOrder}"
+          type="Reject"
+          press="onDelete"
+          visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+        />
+      </Toolbar>
+    </customHeader>
+    <content>
+      <VBox class="sapUiSmallMargin">
+        <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+          <VBox class="sapUiContentPadding">
+            <Label
+              text="{i18n>labelCustomer}"
+              required="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+            <Text text="{Customer/Name}" visible="{= !${view>/editMode} ? !!${OrderID} : false }" />
+            <ComboBox
+              id="customerSelect"
+              items="{/Customers}"
+              selectedKey="{CustomerID}"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            >
+              <core:Item key="{ID}" text="{Name}" />
+            </ComboBox>
+
+            <Label
+              text="{i18n>labelOrderDate}"
+              class="sapUiSmallMarginTop"
+              required="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+            <Text
+              text="{ path: 'OrderDate', formatter: '.formatter.formatDate' }"
+              visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+            />
+            <DatePicker
+              id="orderDatePicker"
+              dateValue="{OrderDate}"
+              displayFormat="dd MMM yyyy"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+
+            <Label
+              text="{i18n>labelRequiredDate}"
+              class="sapUiSmallMarginTop"
+              required="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+            <Text
+              text="{ path: 'RequiredDate', formatter: '.formatter.formatDate' }"
+              visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+            />
+            <DatePicker
+              id="requiredDatePicker"
+              dateValue="{RequiredDate}"
+              displayFormat="dd MMM yyyy"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+
+            <Label text="{i18n>labelShippedDate}" class="sapUiSmallMarginTop" />
+            <Text
+              text="{ path: 'ShippedDate', formatter: '.formatter.formatDate' }"
+              visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+            />
+            <DatePicker
+              dateValue="{ShippedDate}"
+              displayFormat="dd MMM yyyy"
+              width="100%"
+              visible="{= ${view>/editMode} ? true : !${OrderID} }"
+            />
+          </VBox>
+
+          <VBox class="sapUiContentPadding">
+            <Label text="{i18n>labelFreight}" />
+            <Text
+              text="{ parts: [ {path: 'Freight'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency' }"
+            />
+          </VBox>
+        </HBox>
+
+        <Table id="productsTable" items="{Items}" class="sapUiSmallMarginTop">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="{i18n>orderItemsTitle}" />
+              <ToolbarSpacer />
+              <Button
+                text="{i18n>btnAddProduct}"
+                press="onAddProduct"
+                visible="{= !${view>/editMode} ? !${OrderID} : false }"
+              />
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column>
+              <Text text="{i18n>columnProductName}" />
+            </Column>
+            <Column>
+              <Text text="{i18n>columnQuantity}" />
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <VBox>
+                  <Text
+                    text="{Product/Name}"
+                    visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+                  />
+                  <ComboBox
+                    items="{/Products}"
+                    selectedKey="{ProductID}"
+                    visible="{= ${view>/editMode} ? true : !${OrderID} }"
+                  >
+                    <core:Item key="{ID}" text="{Name}" />
+                  </ComboBox>
+                </VBox>
+                <VBox>
+                  <Text
+                    text="{
+                            parts: [
+                              {path: 'i18n>quantityUnit'},
+                              {path: 'Quantity'}
+                            ],
+                            formatter: '.formatter.formatMessage'
+                          }"
+                    visible="{= !${view>/editMode} ? !!${OrderID} : false }"
+                  />
+                  <Input
+                    value="{Quantity}"
+                    type="Number"
+                    visible="{= ${view>/editMode} ? true : !${OrderID} }"
+                  />
+                </VBox>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+    </content>
+    <footer>
+      <Toolbar>
+        <Button
+          text="{i18n>btnCreateOrder}"
+          press="onCreateOrder"
+          type="Emphasized"
+          visible="{= !${OrderID} }"
+        />
+        <Button text="{i18n>btnCancel}" press="onCancel" visible="{= !${OrderID} }" />
+        <ToolbarSpacer />
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

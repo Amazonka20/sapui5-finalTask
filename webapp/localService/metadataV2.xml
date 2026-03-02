@@ -1,0 +1,197 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+  <edmx:DataServices
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    m:DataServiceVersion="2.0"
+    m:MaxDataServiceVersion="2.0"
+  >
+    <Schema
+      xmlns="http://schemas.microsoft.com/ado/2007/05/edm"
+      xmlns:sap="http://www.sap.com/Protocols/SAPData"
+      Namespace="ODataDemo"
+    >
+      <EntityType Name="Product">
+        <Key>
+          <PropertyRef Name="ID" />
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          m:FC_TargetPath="SyndicationTitle"
+          m:FC_ContentKind="text"
+          m:FC_KeepInContent="false"
+        />
+        <Property
+          Name="Description"
+          Type="Edm.String"
+          m:FC_TargetPath="SyndicationSummary"
+          m:FC_ContentKind="text"
+          m:FC_KeepInContent="false"
+        />
+        <Property Name="ReleaseDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DiscontinuedDate" Type="Edm.DateTime" />
+        <Property Name="Rating" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
+        <NavigationProperty
+          Name="OrderItems"
+          Relationship="ODataDemo.Product_OrderItems"
+          ToRole="OrderItem"
+          FromRole="Product"
+        />
+      </EntityType>
+
+      <EntityType Name="Customer">
+        <Key>
+          <PropertyRef Name="ID" />
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Address" Type="ODataDemo.Address" Nullable="false" />
+        <Property Name="Concurrency" Type="Edm.Int32" ConcurrencyMode="Fixed" Nullable="false" />
+        <NavigationProperty
+          Name="Orders"
+          Relationship="ODataDemo.Customer_Orders"
+          ToRole="Order_Customer"
+          FromRole="Customer_Orders"
+        />
+      </EntityType>
+
+      <EntityType Name="Order">
+        <Key>
+          <PropertyRef Name="OrderID" />
+        </Key>
+        <Property Name="OrderID" Type="Edm.String" Nullable="false" />
+        <Property Name="CustomerID" Type="Edm.String" Nullable="false" />
+        <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="RequiredDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ShippedDate" Type="Edm.DateTime" />
+        <Property Name="Freight" Type="Edm.Decimal" Nullable="false" sap:unit="Currency" />
+        <Property
+          Name="Currency"
+          Type="Edm.String"
+          Nullable="false"
+          sap:semantics="currency-code"
+        />
+        <NavigationProperty
+          Name="Customer"
+          Relationship="ODataDemo.Customer_Orders"
+          ToRole="Customer_Orders"
+          FromRole="Order_Customer"
+        />
+        <NavigationProperty
+          Name="Items"
+          Relationship="ODataDemo.Order_OrderItems"
+          ToRole="OrderItems"
+          FromRole="Order"
+        />
+      </EntityType>
+
+      <EntityType Name="OrderItem">
+        <Key>
+          <PropertyRef Name="OrderID" />
+          <PropertyRef Name="ProductID" />
+        </Key>
+        <Property Name="OrderID" Type="Edm.String" Nullable="false" />
+        <Property Name="ProductID" Type="Edm.String" Nullable="false" />
+        <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" sap:unit="Currency" />
+        <Property
+          Name="Currency"
+          Type="Edm.String"
+          Nullable="false"
+          sap:semantics="currency-code"
+        />
+        <NavigationProperty
+          Name="Product"
+          Relationship="ODataDemo.Product_OrderItems"
+          ToRole="Product"
+          FromRole="OrderItem"
+        />
+        <NavigationProperty
+          Name="Order"
+          Relationship="ODataDemo.Order_OrderItems"
+          ToRole="Order"
+          FromRole="OrderItems"
+        />
+      </EntityType>
+
+      <ComplexType Name="Address">
+        <Property Name="Street" Type="Edm.String" />
+        <Property Name="City" Type="Edm.String" />
+        <Property Name="State" Type="Edm.String" />
+        <Property Name="ZipCode" Type="Edm.String" />
+        <Property Name="Country" Type="Edm.String" />
+      </ComplexType>
+
+      <Association Name="Customer_Orders">
+        <End Type="ODataDemo.Customer" Role="Customer_Orders" Multiplicity="1" />
+        <End Type="ODataDemo.Order" Role="Order_Customer" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Customer_Orders">
+            <PropertyRef Name="ID" />
+          </Principal>
+          <Dependent Role="Order_Customer">
+            <PropertyRef Name="CustomerID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <Association Name="Order_OrderItems">
+        <End Type="ODataDemo.Order" Role="Order" Multiplicity="1" />
+        <End Type="ODataDemo.OrderItem" Role="OrderItems" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Order">
+            <PropertyRef Name="OrderID" />
+          </Principal>
+          <Dependent Role="OrderItems">
+            <PropertyRef Name="OrderID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <Association Name="Product_OrderItems">
+        <End Type="ODataDemo.Product" Role="Product" Multiplicity="1" />
+        <End Type="ODataDemo.OrderItem" Role="OrderItem" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Product">
+            <PropertyRef Name="ID" />
+          </Principal>
+          <Dependent Role="OrderItem">
+            <PropertyRef Name="ProductID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <EntityContainer Name="DemoService" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Products" EntityType="ODataDemo.Product" />
+        <EntitySet Name="Customers" EntityType="ODataDemo.Customer" />
+        <EntitySet Name="Orders" EntityType="ODataDemo.Order" />
+        <EntitySet Name="OrderItems" EntityType="ODataDemo.OrderItem" />
+
+        <FunctionImport
+          Name="GetProductsByRating"
+          ReturnType="Collection(ODataDemo.Product)"
+          EntitySet="Products"
+          m:HttpMethod="GET"
+        >
+          <Parameter Name="rating" Type="Edm.Int32" />
+        </FunctionImport>
+
+        <AssociationSet Name="Customers_Orders" Association="ODataDemo.Customer_Orders">
+          <End Role="Customer_Orders" EntitySet="Customers" />
+          <End Role="Order_Customer" EntitySet="Orders" />
+        </AssociationSet>
+
+        <AssociationSet Name="Orders_OrderItems" Association="ODataDemo.Order_OrderItems">
+          <End Role="Order" EntitySet="Orders" />
+          <End Role="OrderItems" EntitySet="OrderItems" />
+        </AssociationSet>
+
+        <AssociationSet Name="Products_OrderItems" Association="ODataDemo.Product_OrderItems">
+          <End Role="Product" EntitySet="Products" />
+          <End Role="OrderItem" EntitySet="OrderItems" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

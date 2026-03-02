@@ -1,10 +1,28 @@
-sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+sap.ui.define(
+  [
+    "finalproject/controller/BaseController",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+  ],
+  (BaseController) => {
     "use strict";
 
-    return Controller.extend("finalproject.controller.Main", {
-        onInit() {
-        }
+    return BaseController.extend("finalproject.controller.Main", {
+      onInit() {},
+
+      onOrderPress(oEvent) {
+        const sId = oEvent.getSource().getBindingContext().getProperty("OrderID");
+        this.getRouter().navTo("details", { orderID: sId });
+      },
+
+      onBeforeRebindTable(oEvent) {
+        const mBindingParams = oEvent.getParameter("bindingParams");
+        mBindingParams.parameters.expand = "Customer";
+      },
+      onCreateOrder() {
+        this.getRouter().navTo("details");
+      },
     });
-});
+  }
+);

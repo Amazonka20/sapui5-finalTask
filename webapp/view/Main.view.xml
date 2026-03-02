@@ -1,6 +1,71 @@
-<mvc:View controllerName="finalproject.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    </Page>
+<mvc:View
+  controllerName="finalproject.controller.Main"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns:smart="sap.ui.comp.smarttable"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  core:require="{ formatter: 'finalproject/model/formatter' }"
+>
+  <Page>
+    <smartFilterBar:SmartFilterBar id="ordersFilterBar" entitySet="Orders" liveMode="true">
+      <smartFilterBar:controlConfiguration>
+        <smartFilterBar:ControlConfiguration key="OrderID" visibleInAdvancedArea="true" />
+        <smartFilterBar:ControlConfiguration key="CustomerID" visibleInAdvancedArea="true" />
+      </smartFilterBar:controlConfiguration>
+    </smartFilterBar:SmartFilterBar>
+
+    <smart:SmartTable
+      id="ordersTable"
+      smartFilterId="ordersFilterBar"
+      header="{i18n>tableHeader}"
+      enableCopy="false"
+      entitySet="Orders"
+      tableType="ResponsiveTable"
+      enableAutoBinding="true"
+      showRowCount="true"
+      initiallyVisibleFields="OrderID,RequiredDate,ShippedDate,Freight"
+      beforeRebindTable="onBeforeRebindTable"
+    >
+      <smart:customToolbar>
+        <OverflowToolbar>
+          <ToolbarSpacer />
+          <Button text="{i18n>createOrderBtn}" type="Emphasized" press="onCreateOrder" />
+        </OverflowToolbar>
+      </smart:customToolbar>
+      <Table>
+        <columns>
+          <Column hAlign="Left">
+            <customData>
+              <core:CustomData
+                key="p13nData"
+                value='{"columnKey":"CustomerName","leadingProperty":"Customer/Name"}'
+                writeToDom="true"
+              />
+            </customData>
+            <Text text="{i18n>columnCustomer}" />
+          </Column>
+
+          <Column hAlign="Left">
+            <customData>
+              <core:CustomData
+                key="p13nData"
+                value='{"columnKey":"ShippedDate","leadingProperty":"ShippedDate", "columnIndex":"3"}'
+                writeToDom="true"
+              />
+            </customData>
+            <Text text="{i18n>columnShippedDate}" />
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Navigation" press="onOrderPress">
+            <cells>
+              <Text text="{Customer/Name}" />
+              <Text text="{path: 'ShippedDate', formatter: 'formatter.formatDate'}" />
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </smart:SmartTable>
+  </Page>
 </mvc:View>
